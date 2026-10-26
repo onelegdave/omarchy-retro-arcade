@@ -177,6 +177,15 @@ void TRamp::Collision(TBall* ball, vector2* nextPosition, vector2* direction, fl
 			if (BallZOffsetFlag)
 				ball->Position.Z = ball->Radius + Wall2BallOffset;
 		}
+		if (OmarchyTable::Enabled)
+		{
+			// The portal normal points into the ramp. After changing layers,
+			// leave the ball on the outgoing side instead of a rounded contact
+			// inside the low tube body. Match basic_collision's separation;
+			// neither velocity nor the classic resource table is changed.
+			ball->Position.X -= direction->X * 0.0005f;
+			ball->Position.Y -= direction->Y * 0.0005f;
+		}
 	}
 }
 

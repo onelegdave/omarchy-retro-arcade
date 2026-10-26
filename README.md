@@ -120,4 +120,4 @@ Tanks is an artillery preview with solo Easy/Normal AI, local two-player matches
 
 ## AI assistance
 
-Codex assisted with dependency security maintenance and verification in this fork.
+Codex assisted with maintenance code and verification in this fork.

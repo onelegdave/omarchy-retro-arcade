@@ -277,6 +277,38 @@ bool AuditGeometry(){
    }
   }
  }
+ // Exercise the actual ramp portal response, including a rollback through
+ // the lower mouth. A layer change must leave the ball strictly on the
+ // outgoing side, even when the computed contact rounds onto/inside the edge.
+ for(auto component:table->ComponentList)if(auto ramp=dynamic_cast<TRamp*>(component)){
+  const auto position=ball->Position;
+  const auto mask=ball->CollisionMask,flag=ball->CollisionFlag;
+  const auto remaining=ball->RayMaxDistance;
+  const auto collisionCount=ball->EdgeCollisionCount;
+  const auto reset=ball->EdgeCollisionResetFlag;
+  TEdgeSegment* collisions[16];std::copy(ball->Collisions,ball->Collisions+16,collisions);
+  for(auto portal:{ramp->Line2,ramp->Line3})for(float t:{.25f,.5f,.75f}){
+   auto line=static_cast<TLine*>(portal);
+   const auto normal=line->Line.PerpendicularC;
+   ray_type ray{};
+   ray.Origin={line->X0+(line->X1-line->X0)*t+normal.X,
+               line->Y0+(line->Y1-line->Y0)*t+normal.Y};
+   ray.Direction={-normal.X,-normal.Y};ray.MaxDistance=2;
+   const float distance=portal->FindCollisionDistance(ray);
+   if(distance<0 || distance>ray.MaxDistance){fprintf(stderr,"RAMP_PORTAL_MISSING\n");return false;}
+   ball->CollisionMask=2;ball->CollisionFlag=1;ball->EdgeCollisionCount=0;
+   portal->EdgeCollision(ball,distance);
+   const float side=(ball->Position.X-line->X0)*normal.X+(ball->Position.Y-line->Y0)*normal.Y;
+   if(ball->CollisionMask!=1 || ball->CollisionFlag || !(side<0)){
+    fprintf(stderr,"RAMP_PORTAL_CLEARANCE %s t=%.2f side=%.9g mask=%d\n",
+        portal==ramp->Line2?"lower":"upper",t,side,ball->CollisionMask);return false;
+   }
+  }
+  ball->Position=position;ball->CollisionMask=mask;ball->CollisionFlag=flag;
+  ball->RayMaxDistance=remaining;ball->EdgeCollisionCount=collisionCount;ball->EdgeCollisionResetFlag=reset;
+  std::copy(collisions,collisions+16,ball->Collisions);
+ }
+ printf("RAMP_PORTALS lower rollback and upper exit clearance passed\n");
  // Independent artwork landmarks catch missing backs, wrongly oriented
  // scoring faces, a closed drain, and a gate that blocks outgoing launches.
  struct Landmark {float x,y,xx,yy;const char* expected;};

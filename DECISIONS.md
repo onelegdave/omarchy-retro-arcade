@@ -517,3 +517,20 @@ and intercepts native close and Ctrl+Q until cleanup completes. Screenshot exit
 uses the same path. A later quit request upgrades return-home intent. Preserve
 on_exit/game/lock destruction order and keep synchronous Drop as a forced-teardown
 fallback. No engine/physics/save-format change; native acceptance remains separate.
+
+## Authored Pinball ramp portal clearance (26 October 2026)
+
+Native CI exposed a raised ball rolling back through the lower tube mouth and
+becoming a ground ball just inside the tube footprint. Upstream TRamp leaves
+outgoing balls exactly at the calculated portal contact, whose floating-point
+rounding can place them on the incoming side. For the authored table only, move
+the outgoing position 0.0005 world units (0.0125 artwork pixels) against the
+portal's inward normal when changing to the destination layer. This matches the
+existing solid-wall response's separation scale and preserves velocity, ramp
+data, rail clearances, scoring, saves and classic resource-table behavior.
+
+Keep the adversarial sweep and all region checks unchanged. Its failure varies
+with the compiler, so the real-engine geometry audit also exercises both portal
+responses at three positions, requiring a ground ball strictly outside the ramp
+edge. The lower midpoint fails this invariant without the correction. These are
+headless physics checks; desktop gameplay and package acceptance remain separate.
