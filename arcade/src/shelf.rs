@@ -15,6 +15,10 @@ impl Game {
             Self::Bubble => "PUZZLE / 20 LEVELS",
             Self::Blast => "ARENA / SOLO + LOCAL",
             Self::TwentyFortyEight => "PUZZLE / 2048",
+            Self::FreeSki => "SPORT / DOWNHILL SKIING",
+            Self::Tanks => "ARTILLERY / SOLO + LOCAL",
+            Self::Minesweeper => "PUZZLE / THREE DIFFICULTIES",
+            Self::Shatter => "ARCADE / BRICK BREAKER",
         }
     }
     fn crop(self) -> Rect {
@@ -29,6 +33,11 @@ impl Game {
             Self::Bubble => ([0.30, 0.10], [0.73, 0.93]),
             Self::Blast => ([0.07, 0.13], [0.93, 0.96]),
             Self::TwentyFortyEight => ([0., 0.], [1., 1.]),
+            // Native 1280×900 capture: frame the chase and the approaching terrain.
+            Self::FreeSki => ([316. / 1280., 206. / 900.], [964. / 1280., 656. / 900.]),
+            Self::Tanks => ([0., 0.], [1., 1.]),
+            Self::Minesweeper => ([0., 0.], [1., 1.]),
+            Self::Shatter => ([0., 0.], [1., 1.]),
         };
         Rect::from_min_max(Pos2::from(a), Pos2::from(b))
     }
@@ -36,7 +45,7 @@ impl Game {
 impl Arcade {
     pub(super) fn shelf(&mut self, ctx: &egui::Context) {
         if self.themed.elapsed() > std::time::Duration::from_secs(2) {
-            self.theme = omarchy_chess::theme::Theme::load();
+            self.theme = arcade_platform::theme::Theme::load();
             self.themed = std::time::Instant::now();
         }
         let light = self.theme.background.r() as u32

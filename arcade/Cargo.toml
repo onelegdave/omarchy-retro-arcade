@@ -6,6 +6,7 @@ rust-version = "1.98"
 license = "GPL-3.0-or-later"
 
 [dependencies]
+arcade-platform = { path = "../shared/platform", features = ["theme"] }
 arcade-presentation = { path = "../shared/presentation" }
 eframe = { version = "=0.31.1", default-features = false, features = ["default_fonts", "glow", "wayland", "x11", "accesskit"] }
 egui_extras = { version = "=0.31.1", default-features = false, features = ["svg", "image"] }
@@ -21,6 +22,14 @@ fs2 = "0.4"
 omarchy-bubble = { path = "../games/bubble" }
 
 omarchy-2048 = { path = "../games/2048" }
+
+omarchy-freeski = { path = "../games/freeski" }
+
+omarchy-shatter = { path = "../games/shatter" }
+
+omarchy-tanks = { path = "../games/tanks", features = ["desktop"] }
+
+omarchy-minesweeper = { path = "../games/minesweeper" }
 
 [dev-dependencies]
 tempfile = "3"
