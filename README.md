@@ -8,17 +8,17 @@
 
 A collection of classic games for Omarchy. Play pinball, cards, puzzles and arcade games in one native window, with offline play, local saves and an interface that follows your desktop theme.
 
-**[Try the preview](#install)** · [See every game](docs/PRESENTATION.md#actual-application-captures)
+**[Try the preview](#install)** Â· [See every game](docs/PRESENTATION.md#actual-application-captures)
 
 ![Omarchy Arcade's opening collection, with a full Pinball preview and all nine games in the selector](docs/polish/shelf.png)
 
-Circuit Pinball · Solitaire · Scram · Invaders · Chess · Stack · Snake · Bubble · Blast · 2048 · Shatter · Tanks · Minesweeper · FreeSki
+Circuit Pinball Â· Solitaire Â· Scram Â· Invaders Â· Chess Â· Stack Â· Snake Â· Bubble Â· Blast Â· 2048 Â· Shatter Â· Tanks Â· Minesweeper Â· FreeSki
 
 **v0.4.0 for x86_64 Omarchy.** Fourteen games, now including FreeSki.
 [Download v0.4.0](https://github.com/tcballard/omarchy-retro-arcade/releases/tag/v0.4.0)
 for the player package, matching source, checksums and current testing limitations.
 
-FreeSki brings a Practice slope, endless skiing with optional yeti pursuit, and a five-course Slalom Cup. [Controls](games/freeski/README.md) · [Release notes](docs/releases/v0.4.0.md).
+FreeSki brings a Practice slope, endless skiing with optional yeti pursuit, and a five-course Slalom Cup. [Controls](games/freeski/README.md) Â· [Release notes](docs/releases/v0.4.0.md).
 
 ## Install
 
@@ -37,7 +37,7 @@ The v0.4.0 package includes fourteen games and a bundled Stockfish engine for Ch
 
 The release supports **x86_64** and includes the checked player package, matching
 application/Stockfish source, build identity and SHA-256 checksums. Release assets are prepared only after automated native and Arch checks pass
-on the versioned source commit. The release candidate was also tested on Tom’s
+on the versioned source commit. The release candidate was also tested on Tomâ€™s
 Omarchy XPS. The full old-version upgrade/rollback matrix and aarch64 remain
 unverified; see the release notes.
 This is a community app, not an official Omarchy package.
